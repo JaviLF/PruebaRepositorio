@@ -2,7 +2,9 @@ package com.ucbcba.taller.controllers;
 
 
 
+import com.ucbcba.taller.entities.City;
 import com.ucbcba.taller.entities.User;
+import com.ucbcba.taller.services.CityService;
 import com.ucbcba.taller.services.SecurityService;
 import com.ucbcba.taller.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class UserController {
+    private CityService cityService;
+
     @Autowired
     private UserService userService;
 
@@ -25,16 +29,23 @@ public class UserController {
 
     //@Autowired
     //private UserValidator userValidator;
+    @Autowired
+    public void setCityService(CityService cityService) {
+        this.cityService = cityService;
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationInit(Model model) {
         model.addAttribute("user", new User());
-
+        /*Iterable<City> cities = cityService.listAllCities();
+        model.addAttribute("cities", cities);*/
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+
+
         if (bindingResult.hasErrors()) {
             return "registration";
         }

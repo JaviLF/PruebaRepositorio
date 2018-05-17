@@ -21,6 +21,10 @@ public class User {
     private boolean admin=false;
     private Set<Role> roles;
 
+    /*@ManyToOne
+    @JoinColumn(name="city_id")
+    private City city;*/
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -97,4 +101,12 @@ public class User {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
+/*
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }*/
 }

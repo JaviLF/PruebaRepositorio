@@ -2,15 +2,8 @@ package com.ucbcba.taller.controllers;
 
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
-import com.ucbcba.taller.entities.Category;
-import com.ucbcba.taller.entities.City;
-import com.ucbcba.taller.entities.User;
-import com.ucbcba.taller.entities.Restaurant;
-import com.ucbcba.taller.services.CategoryService;
-import com.ucbcba.taller.services.CityService;
-import com.ucbcba.taller.services.RestaurantService;
-import com.ucbcba.taller.services.UploadFileService;
-import com.ucbcba.taller.services.UserService;
+import com.ucbcba.taller.entities.*;
+import com.ucbcba.taller.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +24,7 @@ public class RestaurantContoller {
     private RestaurantService restaurantService;
     private CategoryService categoryService;
     private CityService cityService;
+    private NivelPrecioService nivelPrecioService;
 
     @Autowired
     private UserService userService;
@@ -38,6 +32,11 @@ public class RestaurantContoller {
     @Autowired
     public void setRestaurantService(RestaurantService restaurantService) {
         this.restaurantService = restaurantService;
+    }
+
+    @Autowired
+    public void setNivelPrecioService(NivelPrecioService nivelPrecioService) {
+        this.nivelPrecioService = nivelPrecioService;
     }
 
     @Autowired
@@ -77,6 +76,8 @@ public class RestaurantContoller {
             model.addAttribute("categories", categories);
             Iterable<City> cities = cityService.listAllCities();
             model.addAttribute("cities", cities);
+            Iterable<NivelPrecio> nivelPrecios = nivelPrecioService.listAllNivelPrecios();
+            model.addAttribute("nivelPrecios", nivelPrecios);
             return "newRestaurant";
         }
         else {
@@ -119,6 +120,8 @@ public class RestaurantContoller {
             Iterable<City> cities = cityService.listAllCities();
             model.addAttribute("cities", cities);
             model.addAttribute("rest", rest);
+            Iterable<NivelPrecio> nivelPrecios = nivelPrecioService.listAllNivelPrecios();
+            model.addAttribute("nivelPrecios", nivelPrecios);
             return "editRestaurant";
         }
         else{
